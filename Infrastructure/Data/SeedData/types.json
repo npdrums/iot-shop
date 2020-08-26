@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 1,
+    "Name": "Environmental"
+  },
+  {
+    "Id": 2,
+    "Name": "Agricultural"
+  },
+  {
+    "Id": 3,
+    "Name": "Security"
+  },
+  {
+    "Id": 4,
+    "Name": "Home Utility"
+  }
+]

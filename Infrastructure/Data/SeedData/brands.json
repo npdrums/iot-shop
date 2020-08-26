@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 1,
+    "Name": "SmartBoards"
+  },
+  {
+    "Id": 2,
+    "Name": "mikroSolutions"
+  },
+  {
+    "Id": 3,
+    "Name": "Cranberry PI"
+  },
+  {
+    "Id": 4,
+    "Name": "Click&Play"
+  },
+  {
+    "Id": 5,
+    "Name": "masterBuilder"
+  }
+]

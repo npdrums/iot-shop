@@ -1,0 +1,114 @@
+[
+  {
+    "Name": "SmartField",
+    "Description": "SmartField Kit allows you to track agricurtural data in IOT Shop Dashboard using Click&Deploy MCU with humidity, pressure, temperature, as well as soil moisture.",
+    "Price": 199.99,
+    "PictureUrl": "images/products/agro1.png",
+    "ProductTypeId": 2,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "AgroChip",
+    "Description": "AgroChip allows you to track agricurtural data in IOT Shop Dashboard using npdrumsMCU with humidity, pressure, temperature, as well as soil moisture.",
+    "Price": 149.99,
+    "PictureUrl": "images/products/agro2.png",
+    "ProductTypeId": 2,
+    "ProductBrandId": 2
+  },
+  {
+    "Name": "Garden Watch",
+    "Description": "GardenWatch allows you to track agricurtural data in IOT Shop Dashboard using npdrumsMCU with humidity, pressure, temperature, as well as soil moisture.",
+    "Price": 180,
+    "PictureUrl": "images/products/agro3.png",
+    "ProductTypeId": 2,
+    "ProductBrandId": 5
+  },
+  {
+    "Name": "Secure Home",
+    "Description": "SecureHome kit allows you to track data from your dashboard using cranberryMCU with motion and vibration sensors.",
+    "Price": 220.95,
+    "PictureUrl": "images/products/sec1.png",
+    "ProductTypeId": 3,
+    "ProductBrandId": 2
+  },
+  {
+    "Name": "Safe Perimeter",
+    "Description": "Safe Perimeter gives you capabilities to track data from IOT Shop Dashboard using our micro controller with perimeter (IR, PIR) sensors integrated with alarm system.",
+    "Price": 240,
+    "PictureUrl": "images/products/sec2.png",
+    "ProductTypeId": 3,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "GeoLoc",
+    "Description": "Ideal for finding and keeping track of your belongings. Equiped with GPS, gyro and accel sensors.",
+    "Price": 250,
+    "PictureUrl": "images/products/sec3.png",
+    "ProductTypeId": 3,
+    "ProductBrandId": 5
+  },
+  {
+    "Name": "Env Control",
+    "Description": "Check and regulate humidity and temperature, as well as presence of dangerous gases inside of buildings, with our MCU with sensors.",
+    "Price": 199.97,
+    "PictureUrl": "images/products/env1.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Radiation and Gases Alarm",
+    "Description": "Alarm system that tracks radiation levels, as well as presence of harmful gases in rooms of your choice.",
+    "Price": 159.98,
+    "PictureUrl": "images/products/env2.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5
+  },
+  {
+    "Name": "Smart Light",
+    "Description": "Light your way around the house and control color and intensity of light with our Smart Light kit, that comes with LED lightning and motion sensors.",
+    "Price": 200,
+    "PictureUrl": "images/products/homeutil1.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Socket Control",
+    "Description": "Control your expences and track data with our smart sockets.",
+    "Price": 160,
+    "PictureUrl": "images/products/homeutil2.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 2
+  },
+  {
+    "Name": "IoT Product 1",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis fermentum sapien.",
+    "Price": 50,
+    "PictureUrl": "images/products/homeutil3.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 4
+  },
+  {
+    "Name": "IoT Product 2",
+    "Description": "Proin eu mi congue, rhoncus odio ac, faucibus est. Morbi gravida sapien. Proin eu mi congue, rhoncus odio ac, faucibus est. Morbi gravida sapien.",
+    "Price": 60,
+    "PictureUrl": "images/products/homeutil4.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 4
+  },
+  {
+    "Name": "IoT Kit 1",
+    "Description": "Vestibulum rutrum luctus ligula, vitae malesuada massa pulvinar ac. Morbi vestibulum nunc.",
+    "Price": 70,
+    "PictureUrl": "images/products/env3.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "IoT Kit 2",
+    "Description": "Nullam felis nisl, commodo eu lobortis et, mollis sed ipsum. Nulla vitae nisi ac.",
+    "Price": 89.99,
+    "PictureUrl": "images/products/env4.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 3
+  }
+]
