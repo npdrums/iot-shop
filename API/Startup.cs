@@ -48,7 +48,9 @@ namespace API
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseRouting(); // TODO: Find and add images.
+
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
