@@ -4,7 +4,6 @@ using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
 using Core.Specifications;
-using System.Linq;
 using API.DTOs;
 using AutoMapper;
 using API.Errors;
