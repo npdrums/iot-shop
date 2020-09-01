@@ -29,6 +29,7 @@ namespace API
             services.AddApplicationServices();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddSwaggerDocumentation();
+            services.AddCorsPolicy(); // Extension
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +44,8 @@ namespace API
             app.UseRouting(); // TODO: Find and add images.
 
             app.UseStaticFiles();
+
+            app.UseCorsPolicy(); // Extension
 
             app.UseAuthorization();
 
