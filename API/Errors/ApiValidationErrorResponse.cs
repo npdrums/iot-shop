@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace API.Errors
 {
-    public class ApiValidationErrorResponse : ApiResponse
+    public class ApiValidationErrorResponse : ApiErrorResponse
     {
         public ApiValidationErrorResponse() : base(400)
         {
