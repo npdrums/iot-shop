@@ -3,10 +3,14 @@
 
         <section class="col-3">
             <h5>Sort Products</h5>
-            <select class="custom-select mb-3" id="">
-                <option value="">By Name</option>
-                <option value="">Price: Low to High</option>
-                <option value="">Price: High to Low</option>
+            <select class="custom-select mb-3" id="" 
+                    (change)="onSortSelected($event.target.value)"
+            >
+                <option *ngFor="let sort of sortOptions"
+                        [value]="sort.value"
+                >
+                    {{sort.name}}
+                </option>
             </select>
             <h5> Filter By Brands</h5>
             <ul class="list-group my-3">
