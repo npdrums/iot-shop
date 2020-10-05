@@ -11,3 +11,18 @@
     top: -12px;
     right: 30px;
 }
+a {
+    text-decoration: none;
+    color: #343840;
+
+    &.active {
+        color: #007bff;
+    }
+}
+.shop-brand {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
