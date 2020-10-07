@@ -2,6 +2,7 @@
     <div class="row">
 
         <section class="col-3">
+            <ng-container *ngIf="brands && types">
             <h5>Sort Products</h5>
             <select class="custom-select mb-3" id="" 
                     (change)="onSortSelected($event.target.value)"
@@ -34,6 +35,7 @@
                     {{type.name}}
                 </li>
             </ul>
+        </ng-container>
         </section>
 
         <section class="col-9">
@@ -45,7 +47,7 @@
                 >
                 </app-paging-header>
 
-                <div class="form-inline mt-2">
+                <div class="form-inline mt-2" *ngIf="products">
                     <input (keyup.enter)="onSearch()" class="form-control mr-2" #search style="width: 300px;" 
                             placeholder="Search" type="text">
                     <button (click)="onSearch()" class="btn btn-outline-danger my-2">Search</button>
