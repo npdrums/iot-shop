@@ -1,20 +1,22 @@
-<div class="bg-light px-4 py-3 text-uppercase font-weight-bold">
-    Order Summary
-</div>
-<div class="p-4">
-    <p class="font-italic mb-4" style="color:red;">Shipping costs of IOT Kits will be added!</p>
-    <ul class="list-unstyled mb-4" *ngIf="(basketTotal$ | async)">
-        <li class="d-flex justify-content-between py-3 border-bottom">
-            <strong class="text-muted">Order subtotal</strong>
-            <strong>{{(basketTotal$ | async).subtotal | currency}}</strong>
-        </li>
-        <li class="d-flex justify-content-between py-3 border-bottom">
-            <strong class="text-muted">Shipping and handling</strong>
-            <strong>{{(basketTotal$ | async).shipping | currency}}</strong>
-        </li>
-        <li class="d-flex justify-content-between py-3 border-bottom">
-            <strong class="text-muted">Total</strong>
-            <strong>{{(basketTotal$ | async).total | currency}}</strong>
-        </li>
+<div class="card shadow-sm bg-light text-uppercase font-weight-bold m-4">
+  <div class="card-header">Order Summary</div>
+  <div class="card-body">
+    <p class="font-italic mb-4" style="color: red">
+      Shipping costs of IOT Kits will be added!
+    </p>
+    <ul class="list-unstyled mb-4" *ngIf="cartTotal$ | async">
+      <li class="d-flex justify-content-between py-3 border-bottom">
+        <span class="text-muted">Order subtotal</span>
+        <span>{{ (cartTotal$ | async).subtotal | currency }}</span>
+      </li>
+      <li class="d-flex justify-content-between py-3 border-bottom">
+        <span class="text-muted">Shipping and handling</span>
+        <span>{{ (cartTotal$ | async).shipping | currency }}</span>
+      </li>
+      <li class="d-flex justify-content-between py-3 border-bottom">
+        <span class="text-muted">Total</span>
+        <span>{{ (cartTotal$ | async).total | currency }}</span>
+      </li>
     </ul>
+  </div>
 </div>

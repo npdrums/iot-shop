@@ -2,11 +2,11 @@
     <div class="col-6">
         <h3>{{product.name}}</h3>
         <p>{{product.price | currency}}</p>
-        <div class="d-flex justify-content-start align-items-top mb-3">
-            <i (click)="decreaseQuantity()" class="fa fa-minus-circle text-danger mr-2" style="cursor: pointer; font-size: 2em;"></i>
+        <div class="d-flex justify-content-start align-items-center mb-3">
+            <i (click)="decreaseQuantity()" class="fa fa-minus text-danger mr-2" style="cursor: pointer; font-size: 1.3em;"></i>
             <span class="font-weight-bold" style="font-size: 1.3em;">{{quantity}}</span>
-            <i (click)="increaseQuantity()" class="fa fa-plus-circle text-danger mx-2" style="cursor: pointer; font-size: 2em;"></i>
-            <button (click)="addItemToBasket()" class="btn btn-outline-secondary btn-lg ml-4">Add To Cart</button>
+            <i (click)="increaseQuantity()" class="fa fa-plus text-danger mx-2" style="cursor: pointer; font-size: 1.3em;"></i>
+            <button (click)="addItemToCart()" class="btn btn-outline-secondary btn-md ml-4">Add To Cart</button>
         </div>
         <h4>Description</h4>
         <p>{{product.description}}</p>

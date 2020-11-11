@@ -5,24 +5,24 @@ namespace Core.Specifications
     public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product>
     {
         public ProductsWithTypesAndBrandsSpecification(ProductSpecificationParameters productParams)
-            : base (x =>
-                (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&
-                (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) &&
-                (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId))
+            : base (p =>
+                (string.IsNullOrEmpty(productParams.Search) || p.Name.ToLower().Contains(productParams.Search)) &&
+                (!productParams.BrandId.HasValue || p.ProductBrandId == productParams.BrandId) &&
+                (!productParams.TypeId.HasValue || p.ProductTypeId == productParams.TypeId))
         {
-            AddInclude(x => x.ProductBrand);
-            AddInclude(x => x.ProductType);
-            AddOrderBy(x => x.Name);
+            AddInclude(p => p.ProductBrand);
+            AddInclude(p => p.ProductType);
+            AddOrderBy(p => p.Name);
             ApplyPagination(productParams.PageSize * (productParams.PageIndex - 1), productParams.PageSize);
 
             if(!string.IsNullOrEmpty(productParams.Sort))
             {
                 switch (productParams.Sort)
                 {
-                    case "priceAsc":
+                    case "byPriceAsc":
                         AddOrderBy(p => p.Price);
                         break;
-                    case "priceDesc":
+                    case "byPriceDesc":
                         AddOrderByDesc(p => p.Price);
                         break;
                     default:
@@ -32,10 +32,10 @@ namespace Core.Specifications
             }
         }
 
-        public ProductsWithTypesAndBrandsSpecification(int id) : base(x => x.Id == id)
+        public ProductsWithTypesAndBrandsSpecification(int id) : base(p => p.Id == id)
         {
-            AddInclude(x => x.ProductBrand);
-            AddInclude(x => x.ProductType);
+            AddInclude(p => p.ProductBrand);
+            AddInclude(p => p.ProductType);
         }
     }
 }

@@ -7,31 +7,31 @@ using StackExchange.Redis;
 
 namespace Infrastructure.Data
 {
-    public class BasketRepository : IBasketRepository
+    public class ShoppingCartRepository : IShoppingCartRepository
     {
-        private readonly IDatabase _database;
-        public BasketRepository(IConnectionMultiplexer redis)
+        private readonly IDatabase _db;
+        public ShoppingCartRepository(IConnectionMultiplexer redis)
         {
-            _database = redis.GetDatabase();
+            _db = redis.GetDatabase();
         }
 
-        public async Task<bool> DeleteBasketAsync(string basketId)
+        public async Task<bool> DeleteShoppingCartAsync(string shoppingCartId)
         {
-            return await _database.KeyDeleteAsync(basketId);
+            return await _db.KeyDeleteAsync(shoppingCartId);
         }
 
-        public async Task<CustomerBasket> GetBasketAsync(string basketId)
+        public async Task<CustomerShoppingCart> GetShoppingCartAsync(string shoppingCartId)
         {
-            var data = await _database.StringGetAsync(basketId);
-            return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<CustomerBasket>(data);
+            var data = await _db.StringGetAsync(shoppingCartId);
+            return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<CustomerShoppingCart>(data);
         }
 
-        public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
+        public async Task<CustomerShoppingCart> UpdateShoppingCartAsync(CustomerShoppingCart shoppingCart)
         {
-            var created = await _database.StringSetAsync(basket.Id, 
-                                JsonSerializer.Serialize(basket), TimeSpan.FromDays(3));
+            var created = await _db.StringSetAsync(shoppingCart.Id, 
+                                JsonSerializer.Serialize(shoppingCart), TimeSpan.FromDays(3));
             if (!created) return null;
-            return await GetBasketAsync(basket.Id);
+            return await GetShoppingCartAsync(shoppingCart.Id);
         }
     }
 }

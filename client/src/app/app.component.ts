@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BasketService } from './basket/basket.service';
+import { CartService } from './cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,13 @@ import { BasketService } from './basket/basket.service';
 export class AppComponent implements OnInit {
   title = 'IOT Shop';
 
-  constructor(private basketService: BasketService) { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    const basketId = localStorage.getItem('basket_id');
-    if (basketId) {
-      this.basketService.getBasket(basketId).subscribe(() => {
-        console.log('initialized basket');
+    const cartId = localStorage.getItem('cart_id');
+    if (cartId) {
+      this.cartService.getCart(cartId).subscribe(() => {
+        console.log('initialized cart');
       }, error => {
         console.log(error);
       });

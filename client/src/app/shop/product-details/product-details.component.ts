@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BasketService } from 'src/app/basket/basket.service';
+import { CartService } from 'src/app/cart/cart.service';
 import { IProduct } from 'src/app/shared/models/product';
 import { ShopService } from '../shop.service';
 
@@ -15,15 +15,15 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(private shopService: ShopService,
               private activatedRoot: ActivatedRoute,
-              private basketService: BasketService) { }
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.loadProduct();
   }
 
   // tslint:disable-next-line: typedef
-  addItemToBasket() {
-    this.basketService.addItemToBasket(this.product, this.quantity);
+  addItemToCart() {
+    this.cartService.addItemToCart(this.product, this.quantity);
   }
 
   // tslint:disable-next-line: typedef

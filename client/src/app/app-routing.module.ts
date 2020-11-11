@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'shop', loadChildren: () => import('./shop/shop.module').then(mod => mod.ShopModule)},
-  {path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule)},
+  {path: 'cart', loadChildren: () => import('./cart/cart.module').then(mod => mod.CartModule)},
   {path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(mod => mod.CheckoutModule)},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

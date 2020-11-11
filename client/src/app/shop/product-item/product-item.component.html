@@ -1,12 +1,12 @@
 <div class="card h-100 shadow">
     <img src="{{product.pictureUrl}}" alt="{{product.name}}" class="img-fluid bg-info">
     <div class="card-body d-flex flex-column">
-        <a href="#">
+        <a routerLink="/shop/{{product.id}}">
             <h6 class="text-uppercase text-color-custom">{{product.name}}</h6>
         </a>
         <span class="mb-2">{{product.price | currency}}</span>
         <div class="btn-group mt-auto">
-            <button (click)="addItemToBasket()" type="button" class="btn btn-outline-secondary fa fa-shopping-cart mr-2"></button>
+            <button (click)="addItemToCart()" type="button" class="btn btn-outline-secondary fa fa-shopping-cart mr-2"></button>
             <button type="button" routerLink="/shop/{{product.id}}" class="btn btn-outline-secondary">View</button>
         </div>
     </div>

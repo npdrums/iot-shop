@@ -14,10 +14,10 @@ namespace API
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
-        public Startup(IConfiguration config)
+        private readonly IConfiguration _configuration;
+        public Startup(IConfiguration configuration)
         {
-            _config = config;
+            _configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -26,10 +26,11 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<StoreContext>(x => x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<StoreContext>(x => x.UseSqlite(
+                _configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IConnectionMultiplexer>(c => {
-                var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"),
-                true);
+                var configuration = ConfigurationOptions.Parse(
+                    _configuration.GetConnectionString("Redis"),true);
                 return ConnectionMultiplexer.Connect(configuration);
             });
             services.AddApplicationServices();
@@ -47,11 +48,11 @@ namespace API
 
             app.UseHttpsRedirection();
 
-            app.UseRouting(); // TODO: Find and add images.
+            app.UseRouting();
 
             app.UseStaticFiles();
 
-            app.UseCorsPolicy(); // Extension
+            app.UseCorsPolicy();
 
             app.UseAuthorization();
 
