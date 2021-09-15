@@ -1,4 +1,4 @@
-using Core.DTOs;
+using API.DTOs;
 using AutoMapper;
 using Core.Entities;
 using Microsoft.Extensions.Configuration;
