@@ -1,15 +1,19 @@
 using System.Threading.Tasks;
+using API.DTOs;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ShoppingCartController : BaseApiController
+    public class ShoppingCartController : BaseController
     {
         private readonly IShoppingCartRepository _shoppingCartRepository;
-        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository)
+        private readonly IMapper _mapper;
+        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _shoppingCartRepository = shoppingCartRepository;
         }
 
@@ -21,9 +25,12 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerShoppingCart>> UpdateShoppingCart(CustomerShoppingCart shoppingCart)
+        public async Task<ActionResult<CustomerShoppingCart>> UpdateShoppingCart(CustomerShoppingCartDTO shoppingCart)
         {
-            var updatedShoppingCart = await _shoppingCartRepository.UpdateShoppingCartAsync(shoppingCart);
+            var customerShoppingCart = _mapper.Map<CustomerShoppingCartDTO, CustomerShoppingCart>(shoppingCart);
+
+            var updatedShoppingCart = await _shoppingCartRepository.UpdateShoppingCartAsync(customerShoppingCart);
+
             return Ok(updatedShoppingCart);
         }
 

@@ -12,7 +12,7 @@ using API.Helpers;
 
 namespace API.Controllers
 {
-    public class ProductsController : BaseApiController
+    public class ProductsController : BaseController
     {
         private readonly IGenericRepository<ProductType> _productTypeRepo;
         private readonly IGenericRepository<ProductBrand> _productBrandRepo;
