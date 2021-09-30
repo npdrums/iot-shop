@@ -15,8 +15,6 @@
                 <i class="fa fa-shopping-cart fa-2x mr-4 text-dark"></i>
                 <div *ngIf="(cart$ | async)" class="cart-no">{{(cart$ | async).items.length}}</div>
             </a>
-            <a class="btn btn-outline-secondary mr-2" href="#">Login</a>
-            <a class="btn btn-outline-secondary mr-3" href="#">Sign up</a>
             <ng-container *ngIf="(currentUser$ | async) === null">
                 <a routerLink="/account/login" class="btn btn-outline-secondary mr-2">Login</a>
                 <a routerLink="/account/register" class="btn btn-outline-secondary mr-3">Sign up</a>
@@ -28,8 +26,8 @@
                 <strong>Welcome {{(currentUser$ | async).nickname}}</strong>  
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *dropdownMenu>
-                <a routerLink="/basket" class="dropdown-item d-flex align-items-center py-2">
-                    <i class="fa fa-shopping-cart mr-3"></i> View Basket
+                <a routerLink="/cart" class="dropdown-item d-flex align-items-center py-2">
+                    <i class="fa fa-shopping-cart mr-3"></i> View Shopping Cart
                 </a>
                 <a routerLink="/orders" class="dropdown-item d-flex align-items-center py-2">
                     <i class="fa fa-history mr-3"></i> View Orders
