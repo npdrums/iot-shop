@@ -1,85 +1,26 @@
 <div class="container mt-2">
     <div *ngIf="(cart$ | async) === null">
-        <p>There are no items in your cart</p>
+        <p>There are no items in your shopping cart!</p>
     </div>
 
     <div *ngIf="cart$ | async">
         <div class="pb-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 py-5 mb-1 card">
-                        <div class="table-responsive card shadow-sm">
-                            <table class="table">
-                                <thead class="">
-                                    <tr>
-                                        <th class="border-0 bg-light" scope="col">
-                                            <div class="p-2 px-3 text-uppercase">Product</div>
-                                        </th>
-                                        <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase">Price</div>
-                                        </th>
-                                        <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase">Quantity</div>
-                                        </th>
-                                        <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase">Total</div>
-                                        </th>
-                                        <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase">Remove</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of (cart$ | async).items">
-                                        <th scope="row">
-                                            <div class="p-2">
-                                                <img src="{{item.pictureUrl}}" alt="{{item.name}}"
-                                                    class="img-fluid" style="max-height: 50px;">
-                                                <div class="ml-3 d-inline-block align-middle">
-                                                    <h5 class="mb-0">
-                                                        <a routerLink="/shop/{{item.id}}"
-                                                            class="text-dark">{{item.name}}</a>
-                                                    </h5>
-                                                    <span
-                                                        class="text-muted font-weight-normal font-italic d-block">Type:
-                                                        {{item.type}}</span>
-                                                </div>
-
-                                            </div>
-                                        </th>
-                                        <td class="align-middle"><strong>{{item.price | currency}}</strong></td>
-                                        <td class="align-middle">
-                                            <div class="d-flex align-items-center">
-                                                <i (click)="decreaseItemQuantity(item)" class="fa fa-minus text-danger mr-2"
-                                                    style="cursor: pointer; font-size: 1.3em;"></i>
-                                                <span class="font-weight-bold" style="font-size: 1.5em;">
-                                                    {{item.quantity}}
-                                                </span>
-                                                <i (click)="increaseItemQuantity(item)" class="fa fa-plus text-danger mx-2"
-                                                    style="cursor: pointer; font-size: 1.3em;"></i>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <strong>{{item.price * item.quantity | currency}}</strong></td>
-                                        <td class="align-middle text-center">
-                                            <a class="text-danger">
-                                                <i (click)="removeCartItem(item)" class="fa fa-trash" style="font-size: 2em; cursor: pointer;"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="col-12 py-5 mb-1">
+                        <app-cart-summary
+                            (decrement)="decrementItemQuantity($event)"
+                            (increment)="incrementItemQuantity($event)"
+                            (remove)="removeCartItem($event)"
+                        ></app-cart-summary>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6 offset-6">
                         <app-order-totals></app-order-totals>
-                    </div>
-                    <div class="col-6 mt-4 d-flex justify-content-center align-items-start">
-                        <a routerLink="/checkout" class="btn btn-success py-2 btn-block shadow-sm w-75">
-                            Checkout
+                        <a routerLink="/checkout" class="btn btn-outline-primary py-2 btn-block">
+                           Go To Checkout
                         </a>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     this.loadCurrentUser();
   }
 
+  // tslint:disable-next-line: typedef
   loadCurrentUser() {
     const token = localStorage.getItem('token');
     this.accountService.loadCurrentUser(token).subscribe(() => {
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line: typedef
   loadCart() {
     const cartId = localStorage.getItem('cart_id');
     if (cartId) {
