@@ -1,5 +1,8 @@
 <div class="mt-4">
-    <app-cart-summary [isCart]=false></app-cart-summary>
+    <app-cart-summary 
+        [isCart]=false
+        [items]="(cart$ | async).items"
+    ></app-cart-summary>
 </div>
 
 <div class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5">

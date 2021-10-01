@@ -18,6 +18,7 @@ export class CheckoutSuccessComponent implements OnInit {
     }
    }
 
+  // tslint:disable-next-line: typedef
   ngOnInit() {
   }
 

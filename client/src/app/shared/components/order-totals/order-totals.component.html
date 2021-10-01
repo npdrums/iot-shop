@@ -4,18 +4,18 @@
     <p class="font-italic mb-4" style="color: red">
       Shipping costs of IOT Kits will be added!
     </p>
-    <ul class="list-unstyled mb-4" *ngIf="cartTotal$ | async">
+    <ul class="list-unstyled mb-4">
       <li class="d-flex justify-content-between py-3 border-bottom">
         <span class="text-muted">Order subtotal</span>
-        <span>{{ (cartTotal$ | async).subtotal | currency }}</span>
+        <strong>{{subtotal | currency}}</strong>
       </li>
       <li class="d-flex justify-content-between py-3 border-bottom">
         <span class="text-muted">Shipping and handling</span>
-        <span>{{ (cartTotal$ | async).shipping | currency }}</span>
+        <strong>{{shippingPrice | currency}}</strong>
       </li>
       <li class="d-flex justify-content-between py-3 border-bottom">
         <span class="text-muted">Total</span>
-        <span>{{ (cartTotal$ | async).total | currency }}</span>
+        <strong>{{total | currency}}</strong>
       </li>
     </ul>
   </div>

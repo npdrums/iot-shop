@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AccountService } from '../account/account.service';
+import { CartService } from '../cart/cart.service';
+import { ICartTotals } from '../shared/models/cart';
 
 @Component({
   selector: 'app-checkout',
@@ -9,12 +12,16 @@ import { AccountService } from '../account/account.service';
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
+  cartTotals$: Observable<ICartTotals>;
 
-  constructor(private formBuilder: FormBuilder, private accountService: AccountService) { }
+  constructor(private formBuilder: FormBuilder,
+              private accountService: AccountService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.createCheckoutForm();
     this.getAddressFormValues();
+    this.cartTotals$ = this.cartService.cartTotal$;
   }
 
   // tslint:disable-next-line: typedef

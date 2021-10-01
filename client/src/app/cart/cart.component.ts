@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICart, ICartItem } from '../shared/models/cart';
+import { ICart, ICartItem, ICartTotals } from '../shared/models/cart';
 import { CartService } from './cart.service';
 
 
@@ -11,11 +11,13 @@ import { CartService } from './cart.service';
 })
 export class CartComponent implements OnInit {
   cart$: Observable<ICart>;
+  cartTotals$: Observable<ICartTotals>;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cart$ = this.cartService.cart$;
+    this.cartTotals$ = this.cartService.cartTotal$;
   }
 
   // tslint:disable-next-line: typedef

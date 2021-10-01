@@ -12,13 +12,19 @@
                             (decrement)="decrementItemQuantity($event)"
                             (increment)="incrementItemQuantity($event)"
                             (remove)="removeCartItem($event)"
+                            [items]="(cart$ | async).items"
                         ></app-cart-summary>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-6 offset-6">
-                        <app-order-totals></app-order-totals>
+                        <app-order-totals 
+                            *ngIf="(cartTotals$ | async)"
+                            [shippingPrice]="(cartTotals$ | async).shipping"
+                            [subtotal]="(cartTotals$ | async).subtotal" 
+                            [total]="(cartTotals$ | async).total">
+                        </app-order-totals>
                         <a routerLink="/checkout" class="btn btn-outline-primary py-2 btn-block">
                            Go To Checkout
                         </a>
