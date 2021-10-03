@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Entities.Order;
+using Core.Entities.Orders;
 
 namespace API.DTOs
 {

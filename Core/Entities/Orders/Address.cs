@@ -1,4 +1,4 @@
-namespace Core.Entities.Order
+namespace Core.Entities.Orders
 {
     public class Address
     {

@@ -24,7 +24,21 @@ export class CartService {
   // tslint:disable-next-line: typedef
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
     this.shipping = deliveryMethod.price;
+    const cart = this.getCurrentCartValue();
+    cart.deliveryMethodId = deliveryMethod.id;
+    cart.shippingPrice = deliveryMethod.price;
     this.calculateTotals();
+    this.setCart(cart);
+  }
+
+  // tslint:disable-next-line: typedef
+  createPaymentIntent() {
+    return this.http.post(this.baseUrl + 'payments/' + this.getCurrentCartValue().id, {})
+      .pipe(
+        map((cart: ICart) => {
+          this.cartSource.next(cart);
+        })
+      );
   }
 
   // tslint:disable-next-line: typedef

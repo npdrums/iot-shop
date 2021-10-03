@@ -1,6 +1,6 @@
 using System;
 using System.Linq.Expressions;
-using Core.Entities.Order;
+using Core.Entities.Orders;
 
 namespace Core.Specifications
 {

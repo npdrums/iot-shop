@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
-using Core.Entities.Order;
+using Core.Entities.Orders;
 using Core.Interfaces;
 using Core.Specifications;
 
@@ -12,13 +12,18 @@ namespace Infrastructure.Services
     {
         private readonly IShoppingCartRepository _cartRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public OrderService(IShoppingCartRepository cartRepository, IUnitOfWork unitOfWork)
+        private readonly IPaymentService _paymentService;
+        public OrderService(IShoppingCartRepository cartRepository, 
+            IUnitOfWork unitOfWork, 
+            IPaymentService paymentService)
         {
             _unitOfWork = unitOfWork;
             _cartRepository = cartRepository;
+            _paymentService = paymentService;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string cartId, Address shippingAddress)
+        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string cartId, 
+            Address shippingAddress)
         {
             // get cart from the repo
             var cart = await _cartRepository.GetShoppingCartAsync(cartId);
@@ -39,17 +44,27 @@ namespace Infrastructure.Services
             // calc subtotal
             var subtotal = items.Sum(item => item.Price * item.Quantity);
 
+            // checking whether order exists
+            var spec = new OrderByPaymentIntentIdSpecification(cart.PaymentIntentId);
+            var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+
+            if (existingOrder != null)
+            {
+                _unitOfWork.Repository<Order>().Delete(existingOrder);
+                await _paymentService.CreateOrUpdatePaymentIntent(cart.PaymentIntentId);
+            }
+
             // create order
-            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal);
+            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, cart.PaymentIntentId);
             _unitOfWork.Repository<Order>().Add(order);
 
-            // save to db
+            // save to database
             var result = await _unitOfWork.Complete();
 
             if (result <= 0) return null;
 
             // delete cart
-            await _cartRepository.DeleteShoppingCartAsync(cartId);
+            // await _cartRepository.DeleteShoppingCartAsync(cartId);
 
             // return order
             return order;

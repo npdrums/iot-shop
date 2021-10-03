@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Core.Entities.Order
+namespace Core.Entities.Orders
 {
     public enum OrderStatus
     {

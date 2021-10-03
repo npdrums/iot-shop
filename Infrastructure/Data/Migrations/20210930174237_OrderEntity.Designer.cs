@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.6");
 
-            modelBuilder.Entity("Core.Entities.Order.DeliveryMethod", b =>
+            modelBuilder.Entity("Core.Entities.Orders.DeliveryMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("DeliveryMethods");
                 });
 
-            modelBuilder.Entity("Core.Entities.Order.Order", b =>
+            modelBuilder.Entity("Core.Entities.Orders.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +73,7 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Core.Entities.Order.OrderItem", b =>
+            modelBuilder.Entity("Core.Entities.Orders.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,13 +161,13 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("ProductTypes");
                 });
 
-            modelBuilder.Entity("Core.Entities.Order.Order", b =>
+            modelBuilder.Entity("Core.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("Core.Entities.Order.DeliveryMethod", "DeliveryMethod")
+                    b.HasOne("Core.Entities.Orders.DeliveryMethod", "DeliveryMethod")
                         .WithMany()
                         .HasForeignKey("DeliveryMethodId");
 
-                    b.OwnsOne("Core.Entities.Order.Address", "ShipToAddress", b1 =>
+                    b.OwnsOne("Core.Entities.Orders.Address", "ShipToAddress", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .HasColumnType("INTEGER");
@@ -199,13 +199,13 @@ namespace Infrastructure.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Core.Entities.Order.OrderItem", b =>
+            modelBuilder.Entity("Core.Entities.Orders.OrderItem", b =>
                 {
-                    b.HasOne("Core.Entities.Order.Order", null)
+                    b.HasOne("Core.Entities.Orders.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
 
-                    b.OwnsOne("Core.Entities.Order.ProductItemOrdered", "ItemOrdered", b1 =>
+                    b.OwnsOne("Core.Entities.Orders.ProductItemOrdered", "ItemOrdered", b1 =>
                         {
                             b1.Property<int>("OrderItemId")
                                 .HasColumnType("INTEGER");

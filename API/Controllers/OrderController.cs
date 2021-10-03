@@ -6,7 +6,7 @@ using API.DTOs;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
-using Core.Entities.Order;
+using Core.Entities.Orders;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

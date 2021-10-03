@@ -1,5 +1,5 @@
 using System;
-using Core.Entities.Order;
+using Core.Entities.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
