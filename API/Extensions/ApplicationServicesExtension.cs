@@ -15,6 +15,7 @@ namespace API.Extensions
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.Configure<ApiBehaviorOptions>(options =>
