@@ -22,6 +22,7 @@ namespace API.Controllers
         public async Task<ActionResult<CustomerShoppingCart>> GetShoppingCartById(string id)
         {
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartAsync(id);
+            
             return Ok(shoppingCart ?? new CustomerShoppingCart(id));
         }
 
@@ -30,6 +31,7 @@ namespace API.Controllers
         {
             var customerShoppingCart = _mapper.Map<CustomerShoppingCartDTO, CustomerShoppingCart>(shoppingCart);
             var updatedShoppingCart = await _shoppingCartRepository.UpdateShoppingCartAsync(customerShoppingCart);
+
             return Ok(updatedShoppingCart);
         }
 

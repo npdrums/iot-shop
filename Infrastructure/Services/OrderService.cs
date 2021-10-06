@@ -22,7 +22,8 @@ namespace Infrastructure.Services
             _cartRepository = cartRepository;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string shoppingCartId, Address shippingAddress)
+        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, 
+            string shoppingCartId, Address shippingAddress)
         {
             // get shoppingCart from the repo
             var shoppingCart = await _cartRepository.GetShoppingCartAsync(shoppingCartId);
@@ -60,7 +61,10 @@ namespace Infrastructure.Services
             // save to db
             var result = await _unitOfWork.Complete();
 
-            if (result <= 0) return null;
+            if (result <= 0)
+            {
+                return null;
+            }
 
             // return order
             return order;
