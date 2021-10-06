@@ -46,7 +46,7 @@ export class CartService {
     return this.http.get(this.baseUrl + 'shoppingcart?id=' + id)
       .pipe(
         map((cart: ICart) => {
-          console.log(cart)
+          console.log(cart);
           this.cartSource.next(cart);
           this.shipping = cart.shippingPrice;
           this.calculateTotals();
