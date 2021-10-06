@@ -14,7 +14,8 @@ namespace API.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly IConfiguration _configuration;
-        public PaymentController(IPaymentService paymentService, IConfiguration configuration)
+        public PaymentController(IPaymentService paymentService, 
+            IConfiguration configuration)
         {
             _paymentService = paymentService;
             _configuration = configuration;
@@ -32,9 +33,7 @@ namespace API.Controllers
         public async Task<ActionResult> stripeWebHook()
         {
             string webHookSecret = _configuration["StripeSettings: WebHookKey"];
-
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-
             var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], webHookSecret);
 
             PaymentIntent intent;

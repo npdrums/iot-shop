@@ -23,12 +23,12 @@ export class CartSummaryComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  decrementItemQuantity(item: ICartItem) {
+  decreaseItemQuantity(item: ICartItem) {
     this.decrement.emit(item);
   }
 
   // tslint:disable-next-line: typedef
-  incrementItemQuantity(item: ICartItem) {
+  increaseItemQuantity(item: ICartItem) {
     this.increment.emit(item);
   }
 

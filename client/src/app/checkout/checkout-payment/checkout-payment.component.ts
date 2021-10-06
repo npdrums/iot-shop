@@ -20,17 +20,17 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   @Input() checkoutForm: FormGroup;
   @ViewChild('cardNumber', {static: true}) cardNumberElement: ElementRef;
   @ViewChild('cardExpiry', {static: true}) cardExpiryElement: ElementRef;
-  @ViewChild('cardCVV', {static: true}) cardCVVElement: ElementRef;
+  @ViewChild('cardCvc', {static: true}) cardCvcElement: ElementRef;
   stripe: any;
   cardNumber: any;
   cardExpiry: any;
-  cardCVV: any;
+  cardCvc: any;
   cardErrors: any;
   cardHandler = this.onChange.bind(this);
   loading = false;
   cardNumberValid = false;
   cardExpiryValid = false;
-  cardCvvValid = false;
+  cardCvcValid = false;
 
   constructor(
     private cartService: CartService,
@@ -42,7 +42,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.cardNumber.destroy();
     this.cardExpiry.destroy();
-    this.cardCVV.destroy();
+    this.cardCvc.destroy();
     }
 
   // tslint:disable-next-line: typedef
@@ -58,9 +58,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.cardExpiry.mount(this.cardExpiryElement.nativeElement);
     this.cardExpiry.addEventListener('change', this.cardHandler);
 
-    this.cardCVV = elements.create('cardCVV');
-    this.cardCVV.mount(this.cardCVVElement.nativeElement);
-    this.cardCVV.addEventListener('change', this.cardHandler);
+    this.cardCvc = elements.create('cardCvc');
+    this.cardCvc.mount(this.cardCvcElement.nativeElement);
+    this.cardCvc.addEventListener('change', this.cardHandler);
   }
 
   // tslint:disable-next-line: typedef
@@ -79,7 +79,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
         this.cardExpiryValid = event.complete;
         break;
       case 'cardCvc':
-        this.cardCvvValid = event.complete;
+        this.cardCvcValid = event.complete;
         break;
     }
   }
@@ -101,17 +101,19 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       }
       this.loading = false;
     } catch (error) {
+      console.log(error);
       this.loading = false;
     }
   }
 
   // tslint:disable-next-line: typedef
-  private async confirmPaymentWithStripe(basket) {
-    return this.stripe.confirmCardPayment(basket.clientSecret, {
+  private async confirmPaymentWithStripe(cart: ICart) {
+    return this.stripe.confirmCardPayment(cart.clientSecret, {
       payment_method: {
         card: this.cardNumber,
         billing_details: {
-          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value
+          name: this.checkoutForm.get('paymentForm')
+                    .get('nameOnCard').value
         }
       }
     });
@@ -126,9 +128,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   // tslint:disable-next-line: typedef
   private getOrderToCreate(cart: ICart) {
     return {
-      cartId: cart.id,
+      shoppingCartId: cart.id,
       deliveryMethodId: +this.checkoutForm.get('deliveryForm')
-        .get('deliveryMethod').value,
+                             .get('deliveryMethod').value,
       shipToAddress: this.checkoutForm.get('addressForm').value
     };
   }

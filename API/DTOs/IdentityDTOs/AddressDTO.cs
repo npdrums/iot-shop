@@ -1,15 +1,25 @@
-namespace Core.Entities.Identity
+using System.ComponentModel.DataAnnotations;
+
+namespace API.DTOs.IdentityDTOs
 {
-    public class UserAddress
+    public class AddressDTO
     {
-      public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
+
+        [Required]
         public string LastName { get; set; }
+
+        [Required]
         public string Street { get; set; }
+
+        [Required]
         public string City { get; set; }
+
+        [Required]
         public string State { get; set; }
+
+        [Required]
         public string Zipcode { get; set; }
-        public string UserId { get; set; }
-        public User User { get; set; }        
     }
 }

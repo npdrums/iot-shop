@@ -11,7 +11,8 @@ namespace API.Controllers
     {
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IMapper _mapper;
-        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository, IMapper mapper)
+        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository, 
+            IMapper mapper)
         {
             _mapper = mapper;
             _shoppingCartRepository = shoppingCartRepository;
@@ -28,9 +29,7 @@ namespace API.Controllers
         public async Task<ActionResult<CustomerShoppingCart>> UpdateShoppingCart(CustomerShoppingCartDTO shoppingCart)
         {
             var customerShoppingCart = _mapper.Map<CustomerShoppingCartDTO, CustomerShoppingCart>(shoppingCart);
-
             var updatedShoppingCart = await _shoppingCartRepository.UpdateShoppingCartAsync(customerShoppingCart);
-
             return Ok(updatedShoppingCart);
         }
 

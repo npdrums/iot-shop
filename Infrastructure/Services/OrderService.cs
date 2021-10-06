@@ -8,7 +8,7 @@ using Core.Specifications;
 
 namespace Infrastructure.Services
 {
-     public class OrderService : IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IShoppingCartRepository _cartRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -17,20 +17,19 @@ namespace Infrastructure.Services
             IUnitOfWork unitOfWork, 
             IPaymentService paymentService)
         {
+            _paymentService = paymentService;
             _unitOfWork = unitOfWork;
             _cartRepository = cartRepository;
-            _paymentService = paymentService;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string cartId, 
-            Address shippingAddress)
+        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string shoppingCartId, Address shippingAddress)
         {
-            // get cart from the repo
-            var cart = await _cartRepository.GetShoppingCartAsync(cartId);
+            // get shoppingCart from the repo
+            var shoppingCart = await _cartRepository.GetShoppingCartAsync(shoppingCartId);
 
             // get items from the product repo
             var items = new List<OrderItem>();
-            foreach (var item in cart.Items)
+            foreach (var item in shoppingCart.Items)
             {
                 var productItem = await _unitOfWork.Repository<Product>().GetByIdAsync(item.Id);
                 var itemOrdered = new ProductItemOrdered(productItem.Id, productItem.Name, productItem.PictureUrl);
@@ -44,27 +43,24 @@ namespace Infrastructure.Services
             // calc subtotal
             var subtotal = items.Sum(item => item.Price * item.Quantity);
 
-            // checking whether order exists
-            var spec = new OrderByPaymentIntentIdSpecification(cart.PaymentIntentId);
+            // check to see if order exists
+            var spec = new OrderByPaymentIntentIdSpecification(shoppingCart.PaymentIntentId);
             var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
 
             if (existingOrder != null)
             {
                 _unitOfWork.Repository<Order>().Delete(existingOrder);
-                await _paymentService.CreateOrUpdatePaymentIntent(cart.PaymentIntentId);
+                await _paymentService.CreateOrUpdatePaymentIntent(shoppingCart.PaymentIntentId);
             }
 
             // create order
-            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, cart.PaymentIntentId);
+            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, shoppingCart.PaymentIntentId);
             _unitOfWork.Repository<Order>().Add(order);
 
-            // save to database
+            // save to db
             var result = await _unitOfWork.Complete();
 
             if (result <= 0) return null;
-
-            // delete cart
-            // await _cartRepository.DeleteShoppingCartAsync(cartId);
 
             // return order
             return order;

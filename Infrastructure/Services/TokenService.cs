@@ -10,33 +10,32 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services
 {
-    public class JwtService : IJwtService
+    public class TokenService : ITokenService
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
-
-        public JwtService(IConfiguration configuration)
+        public TokenService(IConfiguration config)
         {
-            _configuration = configuration;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:Key"]));
+            _config = config;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(AppUser user)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.Nickname)
+                new Claim(JwtRegisteredClaimNames.GivenName, user.DisplayName)
             };
 
-            var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                SigningCredentials = credentials,
                 Expires = DateTime.Now.AddDays(7),
-                Issuer = _configuration["Token:Issuer"]
+                SigningCredentials = creds,
+                Issuer = _config["Token:Issuer"]
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

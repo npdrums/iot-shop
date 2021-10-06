@@ -9,8 +9,8 @@
                 <div class="row">
                     <div class="col-12 py-5 mb-1">
                         <app-cart-summary
-                            (decrement)="decrementItemQuantity($event)"
-                            (increment)="incrementItemQuantity($event)"
+                            (decrement)="decreaseItemQuantity($event)"
+                            (increment)="increaseItemQuantity($event)"
                             (remove)="removeCartItem($event)"
                             [items]="(cart$ | async).items"
                         ></app-cart-summary>

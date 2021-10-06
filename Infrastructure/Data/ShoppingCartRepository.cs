@@ -22,6 +22,7 @@ namespace Infrastructure.Data
 
         public async Task<CustomerShoppingCart> GetShoppingCartAsync(string shoppingCartId)
         {
+            Console.WriteLine("HERE:" + shoppingCartId);
             var data = await _db.StringGetAsync(shoppingCartId);
             return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<CustomerShoppingCart>(data);
         }

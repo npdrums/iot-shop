@@ -44,12 +44,12 @@
                     <td class="align-middle">
                         <div class="d-flex align-items-center" 
                             [class.justify-content-center]="!isCart">
-                            <i *ngIf="isCart" (click)="decrementItemQuantity(item)" class="fa fa-minus-circle text-warning mr-2"
+                            <i *ngIf="isCart" (click)="decreaseItemQuantity(item)" class="fa fa-minus-circle text-warning mr-2"
                                 style="cursor: pointer; font-size: 2em;"></i>
                             <span class="font-weight-bold" style="font-size: 1.5em;">
                                 {{item.quantity}}
                             </span>
-                            <i *ngIf="isCart" (click)="incrementItemQuantity(item)" class="fa fa-plus-circle text-warning mx-2"
+                            <i *ngIf="isCart" (click)="increaseItemQuantity(item)" class="fa fa-plus-circle text-warning mx-2"
                                 style="cursor: pointer; font-size: 2em;"></i>
                         </div>
                     </td>

@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/shop';
     this.createLoginForm();
   }
-  // tslint:disable-next-line: typedef
 
   // tslint:disable-next-line: typedef
   createLoginForm() {

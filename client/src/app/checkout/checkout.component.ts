@@ -58,10 +58,10 @@ export class CheckoutComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   getDeliveryMethodValue() {
-    const basket = this.cartService.getCurrentCartValue();
-    if (basket.deliveryMethodId !== null) {
+    const cart = this.cartService.getCurrentCartValue();
+    if (cart.deliveryMethodId !== null) {
       this.checkoutForm.get('deliveryForm').get('deliveryMethod')
-          .patchValue(basket.deliveryMethodId.toString());
+          .patchValue(cart.deliveryMethodId.toString());
     }
   }
 

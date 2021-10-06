@@ -33,7 +33,7 @@ export class CartService {
 
   // tslint:disable-next-line: typedef
   createPaymentIntent() {
-    return this.http.post(this.baseUrl + 'payments/' + this.getCurrentCartValue().id, {})
+    return this.http.post(this.baseUrl + 'payment/' + this.getCurrentCartValue().id, {})
       .pipe(
         map((cart: ICart) => {
           this.cartSource.next(cart);
@@ -46,15 +46,17 @@ export class CartService {
     return this.http.get(this.baseUrl + 'shoppingcart?id=' + id)
       .pipe(
         map((cart: ICart) => {
+          console.log(cart)
           this.cartSource.next(cart);
+          this.shipping = cart.shippingPrice;
           this.calculateTotals();
-          console.log(cart);
         })
       );
   }
 
   // tslint:disable-next-line: typedef
   setCart(cart: ICart) {
+    console.log(cart);
     this.http.post(this.baseUrl + 'shoppingcart', cart).subscribe((response: ICart) => {
       this.cartSource.next(response);
       this.calculateTotals();
@@ -72,6 +74,7 @@ export class CartService {
   // tslint:disable-next-line: typedef
   addItemToCart(item: IProduct, quantity = 1) {
     const itemToAdd: ICartItem = this.mapProductItemToCartItem(item, quantity);
+    console.log(itemToAdd);
     const cart = this.getCurrentCartValue() ?? this.createCart();
     cart.items = this.addOrUpdateItem(cart.items, itemToAdd, quantity);
     this.setCart(cart);
@@ -157,7 +160,7 @@ export class CartService {
   private mapProductItemToCartItem(item: IProduct, quantity: number): ICartItem {
     return {
       id: item.id,
-      name: item.name,
+      productName: item.name,
       price: item.price,
       pictureUrl: item.pictureUrl,
       quantity,

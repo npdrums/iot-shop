@@ -8,6 +8,7 @@ using API.DTOs;
 using AutoMapper;
 using API.Errors;
 using Microsoft.AspNetCore.Http;
+
 using API.Helpers;
 
 namespace API.Controllers
@@ -49,7 +50,12 @@ namespace API.Controllers
         {
             var specification = new ProductsWithTypesAndBrandsSpecification(id);
             var product = await _productsRepo.GetEntityWithSpec(specification);
-            if (product == null) return NotFound(new ApiErrorResponse(404));
+            
+            if (product == null)
+            {
+                return NotFound(new ApiErrorResponse(404));
+            }
+
             return _mapper.Map<Product, ProductDTO>(product);
         }
 

@@ -1,9 +1,9 @@
-namespace API.DTOs
+namespace API.DTOs.IdentityDTOs
 {
     public class UserDTO
     {
         public string Email { get; set; }
-        public string Nickname { get; set; }
+        public string DisplayName { get; set; }
         public string Token { get; set; }
     }
-} 
+}

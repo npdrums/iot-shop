@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace API.DTOs
+namespace API.DTOs.IdentityDTOs
 {
     public class RegistrationDTO
     {   [Required]
-        public string Nickname { get; set; }
+        public string DisplayName { get; set; }
 
         [Required]
         [EmailAddress]

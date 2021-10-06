@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   // tslint:disable-next-line: typedef
   createRegisterForm() {
     this.registerForm = this.fb.group({
-      nickname: [null, [Validators.required]],
+      displayName: [null, [Validators.required]],
       email: [null,
         [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')],
         [this.validateEmailNotTaken()]
