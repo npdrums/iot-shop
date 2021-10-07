@@ -25,6 +25,6 @@ namespace API.DTOs
         public string Brand { get; set; }
 
         [Required]
-        public string Type { get; set; }      
+        public string Type { get; set; }
     }
 }

@@ -13,8 +13,8 @@ namespace Infrastructure.Services
         private readonly IShoppingCartRepository _cartRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPaymentService _paymentService;
-        public OrderService(IShoppingCartRepository cartRepository, 
-            IUnitOfWork unitOfWork, 
+        public OrderService(IShoppingCartRepository cartRepository,
+            IUnitOfWork unitOfWork,
             IPaymentService paymentService)
         {
             _paymentService = paymentService;
@@ -22,13 +22,11 @@ namespace Infrastructure.Services
             _cartRepository = cartRepository;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, 
+        public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId,
             string shoppingCartId, Address shippingAddress)
         {
-            // get shoppingCart from the repo
             var shoppingCart = await _cartRepository.GetShoppingCartAsync(shoppingCartId);
 
-            // get items from the product repo
             var items = new List<OrderItem>();
             foreach (var item in shoppingCart.Items)
             {
@@ -38,13 +36,10 @@ namespace Infrastructure.Services
                 items.Add(orderItem);
             }
 
-            // get delivery method from repo
             var deliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
 
-            // calc subtotal
             var subtotal = items.Sum(item => item.Price * item.Quantity);
 
-            // check to see if order exists
             var spec = new OrderByPaymentIntentIdSpecification(shoppingCart.PaymentIntentId);
             var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
 
@@ -54,11 +49,9 @@ namespace Infrastructure.Services
                 await _paymentService.CreateOrUpdatePaymentIntent(shoppingCart.PaymentIntentId);
             }
 
-            // create order
             var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, shoppingCart.PaymentIntentId);
             _unitOfWork.Repository<Order>().Add(order);
 
-            // save to db
             var result = await _unitOfWork.Complete();
 
             if (result <= 0)
@@ -66,7 +59,6 @@ namespace Infrastructure.Services
                 return null;
             }
 
-            // return order
             return order;
         }
 

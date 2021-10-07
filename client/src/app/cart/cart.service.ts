@@ -7,9 +7,8 @@ import { Cart, ICart, ICartItem, ICartTotals } from '../shared/models/cart';
 import { IProduct } from '../shared/models/product';
 import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   baseUrl = environment.apiUrl;
@@ -19,7 +18,7 @@ export class CartService {
   cartTotal$ = this.cartTotalSource.asObservable();
   shipping = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // tslint:disable-next-line: typedef
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
@@ -33,7 +32,8 @@ export class CartService {
 
   // tslint:disable-next-line: typedef
   createPaymentIntent() {
-    return this.http.post(this.baseUrl + 'payment/' + this.getCurrentCartValue().id, {})
+    return this.http
+      .post(this.baseUrl + 'payment/' + this.getCurrentCartValue().id, {})
       .pipe(
         map((cart: ICart) => {
           this.cartSource.next(cart);
@@ -43,27 +43,29 @@ export class CartService {
 
   // tslint:disable-next-line: typedef
   getCart(id: string) {
-    return this.http.get(this.baseUrl + 'shoppingcart?id=' + id)
-      .pipe(
-        map((cart: ICart) => {
-          console.log(cart);
-          this.cartSource.next(cart);
-          this.shipping = cart.shippingPrice;
-          this.calculateTotals();
-        })
-      );
+    return this.http.get(this.baseUrl + 'shoppingcart?id=' + id).pipe(
+      map((cart: ICart) => {
+        console.log(cart);
+        this.cartSource.next(cart);
+        this.shipping = cart.shippingPrice;
+        this.calculateTotals();
+      })
+    );
   }
 
   // tslint:disable-next-line: typedef
   setCart(cart: ICart) {
     console.log(cart);
-    this.http.post(this.baseUrl + 'shoppingcart', cart).subscribe((response: ICart) => {
-      this.cartSource.next(response);
-      this.calculateTotals();
-      console.log(response);
-    }, error => {
-      console.log(error);
-    });
+    this.http.post(this.baseUrl + 'shoppingcart', cart).subscribe(
+      (response: ICart) => {
+        this.cartSource.next(response);
+        this.calculateTotals();
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   // tslint:disable-next-line: typedef
@@ -83,7 +85,7 @@ export class CartService {
   // tslint:disable-next-line: typedef
   increaseItemQuantity(item: ICartItem) {
     const cart = this.getCurrentCartValue();
-    const foundItemIndex = cart.items.findIndex(x => x.id === item.id);
+    const foundItemIndex = cart.items.findIndex((x) => x.id === item.id);
     cart.items[foundItemIndex].quantity++;
     this.setCart(cart);
   }
@@ -91,7 +93,7 @@ export class CartService {
   // tslint:disable-next-line: typedef
   decreaseItemQuantity(item: ICartItem) {
     const cart = this.getCurrentCartValue();
-    const foundItemIndex = cart.items.findIndex(x => x.id === item.id);
+    const foundItemIndex = cart.items.findIndex((x) => x.id === item.id);
     if (cart.items[foundItemIndex].quantity > 1) {
       cart.items[foundItemIndex].quantity--;
       this.setCart(cart);
@@ -103,8 +105,8 @@ export class CartService {
   // tslint:disable-next-line: typedef
   removeItemFromCart(item: ICartItem) {
     const cart = this.getCurrentCartValue();
-    if (cart.items.some(x => x.id === item.id)) {
-      cart.items = cart.items.filter(i => i.id !== item.id);
+    if (cart.items.some((x) => x.id === item.id)) {
+      cart.items = cart.items.filter((i) => i.id !== item.id);
       if (cart.items.length > 0) {
         this.setCart(cart);
       } else {
@@ -122,26 +124,35 @@ export class CartService {
 
   // tslint:disable-next-line: typedef
   deleteCart(cart: ICart) {
-    return this.http.delete(this.baseUrl + 'shoppingcart?id=' + cart.id).subscribe(() => {
-      this.cartSource.next(null);
-      this.cartTotalSource.next(null);
-      localStorage.removeItem('cart_id');
-    }, error => {
-      console.log(error);
-    });
+    return this.http
+      .delete(this.baseUrl + 'shoppingcart?id=' + cart.id)
+      .subscribe(
+        () => {
+          this.cartSource.next(null);
+          this.cartTotalSource.next(null);
+          localStorage.removeItem('cart_id');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   // tslint:disable-next-line: typedef
   private calculateTotals() {
     const cart = this.getCurrentCartValue();
     const shipping = this.shipping;
-    const subtotal = cart.items.reduce((a, b) => (b.price * b.quantity) + a, 0);
+    const subtotal = cart.items.reduce((a, b) => b.price * b.quantity + a, 0);
     const total = subtotal + shipping;
-    this.cartTotalSource.next({shipping, total, subtotal});
+    this.cartTotalSource.next({ shipping, total, subtotal });
   }
 
-  private addOrUpdateItem(items: ICartItem[], itemToAdd: ICartItem, quantity: number): ICartItem[] {
-    const index = items.findIndex(item => item.id === itemToAdd.id);
+  private addOrUpdateItem(
+    items: ICartItem[],
+    itemToAdd: ICartItem,
+    quantity: number
+  ): ICartItem[] {
+    const index = items.findIndex((item) => item.id === itemToAdd.id);
     if (index === -1) {
       itemToAdd.quantity = quantity;
       items.push(itemToAdd);
@@ -157,7 +168,10 @@ export class CartService {
     return cart;
   }
 
-  private mapProductItemToCartItem(item: IProduct, quantity: number): ICartItem {
+  private mapProductItemToCartItem(
+    item: IProduct,
+    quantity: number
+  ): ICartItem {
     return {
       id: item.id,
       productName: item.name,
@@ -165,7 +179,7 @@ export class CartService {
       pictureUrl: item.pictureUrl,
       quantity,
       brand: item.productBrand,
-      type: item.productType
+      type: item.productType,
     };
   }
 }

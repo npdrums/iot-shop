@@ -6,12 +6,12 @@ import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 import { IOrderToCreate } from '../shared/models/order';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CheckoutService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // tslint:disable-next-line: typedef
   creatOrder(order: IOrderToCreate) {

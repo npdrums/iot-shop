@@ -8,14 +8,16 @@ import { AccountService } from 'src/app/account/account.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss']
+  styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
   cart$: Observable<ICart>;
   currentUser$: Observable<IUser>;
 
-  constructor(private cartService: CartService,
-              private accountService: AccountService) { }
+  constructor(
+    private cartService: CartService,
+    private accountService: AccountService
+  ) {}
 
   ngOnInit(): void {
     this.cart$ = this.cartService.cart$;
@@ -26,5 +28,4 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.accountService.logout();
   }
-
 }

@@ -1,8 +1,8 @@
 export interface IGroups {
-    items: IGroup[];
+  items: IGroup[];
 }
 
 export interface IGroup {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }

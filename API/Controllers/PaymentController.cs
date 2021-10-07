@@ -14,7 +14,7 @@ namespace API.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly IConfiguration _configuration;
-        public PaymentController(IPaymentService paymentService, 
+        public PaymentController(IPaymentService paymentService,
             IConfiguration configuration)
         {
             _paymentService = paymentService;
@@ -39,14 +39,14 @@ namespace API.Controllers
             PaymentIntent intent;
             Order order;
 
-            switch(stripeEvent.Type)
+            switch (stripeEvent.Type)
             {
                 case "payment_intent.succeeded":
-                    intent = (PaymentIntent) stripeEvent.Data.Object;
+                    intent = (PaymentIntent)stripeEvent.Data.Object;
                     order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
                     break;
                 case "payment_intent.payment_failed":
-                    intent = (PaymentIntent) stripeEvent.Data.Object;
+                    intent = (PaymentIntent)stripeEvent.Data.Object;
                     order = await _paymentService.UpdateOrderPaymentFailed(intent.Id);
                     break;
             }

@@ -5,7 +5,7 @@ import { IOrder } from 'src/app/shared/models/order';
 @Component({
   selector: 'app-checkout-success',
   templateUrl: './checkout-success.component.html',
-  styleUrls: ['./checkout-success.component.scss']
+  styleUrls: ['./checkout-success.component.scss'],
 })
 export class CheckoutSuccessComponent implements OnInit {
   order: IOrder;
@@ -16,10 +16,8 @@ export class CheckoutSuccessComponent implements OnInit {
     if (state) {
       this.order = state as IOrder;
     }
-   }
-
-  // tslint:disable-next-line: typedef
-  ngOnInit() {
   }
 
+  // tslint:disable-next-line: typedef
+  ngOnInit() {}
 }

@@ -12,14 +12,14 @@ using Core.Specifications;
 
 namespace Infrastructure.Services
 {
-    public class PaymentService : IPaymentService
+    public class StripePaymentService : IPaymentService
     {
         private readonly IShoppingCartRepository _cartRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
 
-        public PaymentService(IShoppingCartRepository cartRepository, 
-            IUnitOfWork unitOfWork, 
+        public StripePaymentService(IShoppingCartRepository cartRepository,
+            IUnitOfWork unitOfWork,
             IConfiguration configuration)
         {
             _configuration = configuration;
@@ -32,7 +32,7 @@ namespace Infrastructure.Services
             StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
 
             var cart = await _cartRepository.GetShoppingCartAsync(cartId);
-            if(cart == null) return null;
+            if (cart == null) return null;
 
             var shippingPrice = 0m;
 
@@ -63,9 +63,9 @@ namespace Infrastructure.Services
             {
                 var options = new PaymentIntentCreateOptions
                 {
-                    Amount = (long) cart.Items.Sum(i => i.Quantity * (i.Price * 100)) + (long) shippingPrice * 100,
+                    Amount = (long)cart.Items.Sum(i => i.Quantity * (i.Price * 100)) + (long)shippingPrice * 100,
                     Currency = "usd",
-                    PaymentMethodTypes = new List<string> {"card"}
+                    PaymentMethodTypes = new List<string> { "card" }
                 };
                 intent = await service.CreateAsync(options);
                 cart.PaymentIntentId = intent.Id;
@@ -75,7 +75,7 @@ namespace Infrastructure.Services
             {
                 var options = new PaymentIntentUpdateOptions
                 {
-                    Amount = (long) cart.Items.Sum(i => i.Quantity * (i.Price * 100)) + (long) shippingPrice * 100
+                    Amount = (long)cart.Items.Sum(i => i.Quantity * (i.Price * 100)) + (long)shippingPrice * 100
                 };
                 await service.UpdateAsync(cart.PaymentIntentId, options);
             }
@@ -85,12 +85,15 @@ namespace Infrastructure.Services
             return cart;
         }
 
-        public async Task<Core.Entities.Orders.Order> UpdateOrderPaymentFailed(string paymentIntentId)
+        public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
         {
             var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
             var order = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
 
-            if (order == null) return null;
+            if (order == null)
+            {
+                return null;
+            }
 
             order.Status = OrderStatus.PaymentFailed;
             await _unitOfWork.Complete();
@@ -98,12 +101,15 @@ namespace Infrastructure.Services
             return order;
         }
 
-        public async Task<Core.Entities.Orders.Order> UpdateOrderPaymentSucceeded(string paymentIntentId)
+        public async Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId)
         {
             var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
             var order = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
 
-            if (order == null) return null;
+            if (order == null)
+            {
+                return null;
+            }
 
             order.Status = OrderStatus.PaymentRecevied;
             _unitOfWork.Repository<Order>().Update(order);

@@ -15,7 +15,7 @@ namespace API.Helpers
 
         public string Resolve(Product source, ProductDTO destination, string destMember, ResolutionContext context)
         {
-            if(!string.IsNullOrEmpty(source.PictureUrl))
+            if (!string.IsNullOrEmpty(source.PictureUrl))
             {
                 return _configuration["ApiUrl"] + source.PictureUrl;
             }

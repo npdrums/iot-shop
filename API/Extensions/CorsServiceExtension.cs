@@ -7,7 +7,7 @@ namespace API.Extensions
     {
         public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
         {
-            services.AddCors(opt => 
+            services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {

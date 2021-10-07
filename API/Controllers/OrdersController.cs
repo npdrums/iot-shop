@@ -19,7 +19,7 @@ namespace API.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
-        public OrdersController(IOrderService orderService, 
+        public OrdersController(IOrderService orderService,
             IMapper mapper)
         {
             _mapper = mapper;
@@ -34,7 +34,7 @@ namespace API.Controllers
             var order = await _orderService
                 .CreateOrderAsync(email, orderDTO.DeliveryMethodId, orderDTO.ShoppingCartId, address);
 
-            if (order == null) 
+            if (order == null)
             {
                 return BadRequest(new ApiErrorResponse(400, "Problem creating order"));
             }

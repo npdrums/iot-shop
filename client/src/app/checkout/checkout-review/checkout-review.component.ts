@@ -8,13 +8,13 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-checkout-review',
   templateUrl: './checkout-review.component.html',
-  styleUrls: ['./checkout-review.component.scss']
+  styleUrls: ['./checkout-review.component.scss'],
 })
 export class CheckoutReviewComponent implements OnInit {
   @Input() appStepper: CdkStepper;
   cart$: Observable<ICart>;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService) {}
 
   // tslint:disable-next-line: typedef
   ngOnInit() {
@@ -23,11 +23,13 @@ export class CheckoutReviewComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   createPaymentIntent() {
-    return this.cartService.createPaymentIntent().subscribe((response: any) => {
-      this.appStepper.next();
-    }, error => {
-      console.log(error);
-    });
+    return this.cartService.createPaymentIntent().subscribe(
+      (response: any) => {
+        this.appStepper.next();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-
 }

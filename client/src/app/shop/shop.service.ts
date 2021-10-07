@@ -9,12 +9,12 @@ import { IProduct } from '../shared/models/product';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShopService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // tslint:disable-next-line: typedef
   getProducts(shopParams: ShopParams) {
@@ -36,9 +36,13 @@ export class ShopService {
     params = params.append('pageIndex', shopParams.pageNumber.toString());
     params = params.append('pageSize', shopParams.pageSize.toString());
 
-    return this.http.get<IPagination>(this.baseUrl + 'products', {observe: 'response', params})
+    return this.http
+      .get<IPagination>(this.baseUrl + 'products', {
+        observe: 'response',
+        params,
+      })
       .pipe(
-        map(response => {
+        map((response) => {
           return response.body;
         })
       );

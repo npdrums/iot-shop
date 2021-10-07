@@ -10,7 +10,7 @@ namespace Infrastructure.Identity
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder) 
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
         }

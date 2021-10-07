@@ -7,7 +7,7 @@ import { IOrderItem } from '../../models/order';
 @Component({
   selector: 'app-cart-summary',
   templateUrl: './cart-summary.component.html',
-  styleUrls: ['./cart-summary.component.scss']
+  styleUrls: ['./cart-summary.component.scss'],
 })
 export class CartSummaryComponent implements OnInit {
   @Output() decrement: EventEmitter<ICartItem> = new EventEmitter<ICartItem>();
@@ -16,11 +16,10 @@ export class CartSummaryComponent implements OnInit {
   @Input() isCart = true;
   @Input() items: ICartItem[] | IOrderItem[] = [];
 
-  constructor() { }
+  constructor() {}
 
   // tslint:disable-next-line: typedef
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   // tslint:disable-next-line: typedef
   decreaseItemQuantity(item: ICartItem) {
@@ -36,5 +35,4 @@ export class CartSummaryComponent implements OnInit {
   removeCartItem(item: ICartItem) {
     this.remove.emit(item);
   }
-
 }

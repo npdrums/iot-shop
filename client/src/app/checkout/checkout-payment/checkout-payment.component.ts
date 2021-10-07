@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CartService } from 'src/app/cart/cart.service';
 import { CheckoutService } from '../checkout.service';
@@ -13,14 +21,13 @@ declare var Stripe;
 @Component({
   selector: 'app-checkout-payment',
   templateUrl: './checkout-payment.component.html',
-  styleUrls: ['./checkout-payment.component.scss']
+  styleUrls: ['./checkout-payment.component.scss'],
 })
-
 export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   @Input() checkoutForm: FormGroup;
-  @ViewChild('cardNumber', {static: true}) cardNumberElement: ElementRef;
-  @ViewChild('cardExpiry', {static: true}) cardExpiryElement: ElementRef;
-  @ViewChild('cardCvc', {static: true}) cardCvcElement: ElementRef;
+  @ViewChild('cardNumber', { static: true }) cardNumberElement: ElementRef;
+  @ViewChild('cardExpiry', { static: true }) cardExpiryElement: ElementRef;
+  @ViewChild('cardCvc', { static: true }) cardCvcElement: ElementRef;
   stripe: any;
   cardNumber: any;
   cardExpiry: any;
@@ -36,14 +43,15 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     private cartService: CartService,
     private checkoutService: CheckoutService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   // tslint:disable-next-line: typedef
   ngOnDestroy() {
     this.cardNumber.destroy();
     this.cardExpiry.destroy();
     this.cardCvc.destroy();
-    }
+  }
 
   // tslint:disable-next-line: typedef
   ngAfterViewInit() {
@@ -94,7 +102,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
 
       if (paymentResult.paymentIntent) {
         this.cartService.deleteCart(cart);
-        const navigationExtras: NavigationExtras = {state: createdOrder};
+        const navigationExtras: NavigationExtras = { state: createdOrder };
         this.router.navigate(['checkout/success'], navigationExtras);
       } else {
         this.toastr.error(paymentResult.error.message);
@@ -112,10 +120,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       payment_method: {
         card: this.cardNumber,
         billing_details: {
-          name: this.checkoutForm.get('paymentForm')
-                    .get('nameOnCard').value
-        }
-      }
+          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value,
+        },
+      },
     });
   }
 
@@ -129,10 +136,10 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   private getOrderToCreate(cart: ICart) {
     return {
       shoppingCartId: cart.id,
-      deliveryMethodId: +this.checkoutForm.get('deliveryForm')
-                             .get('deliveryMethod').value,
-      shipToAddress: this.checkoutForm.get('addressForm').value
+      deliveryMethodId: +this.checkoutForm
+        .get('deliveryForm')
+        .get('deliveryMethod').value,
+      shipToAddress: this.checkoutForm.get('addressForm').value,
     };
   }
-
 }

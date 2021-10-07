@@ -9,10 +9,10 @@ namespace Core.Entities.Orders
         {
         }
 
-        public Order(IReadOnlyList<OrderItem> orderItems, 
-            string buyerEmail, 
-            Address shipToAddress, 
-            DeliveryMethod deliveryMethod, 
+        public Order(IReadOnlyList<OrderItem> orderItems,
+            string buyerEmail,
+            Address shipToAddress,
+            DeliveryMethod deliveryMethod,
             decimal subtotal,
             string paymentIntentId)
         {

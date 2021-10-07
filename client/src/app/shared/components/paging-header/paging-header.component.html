@@ -1,20 +1,21 @@
 <header>
-    <span *ngIf="totalCount && totalCount > 0">
-        Showing 
-        <strong>
-            {{(pageNumber - 1) * pageSize + 1}} -
-            {{pageNumber * pageSize
-                > this.totalCount 
-                ? this.totalCount 
-                : pageNumber*pageSize
-            }}
-        </strong> of 
-        <strong>
-            {{this.totalCount}} 
-            Products
-        </strong>
-    </span>
-    <span *ngIf="totalCount === 0" style="color: red; font-weight: 700;">
-        No Results!
-    </span>
+  <span *ngIf="totalCount && totalCount > 0">
+    Showing
+    <strong>
+      {{ (pageNumber - 1) * pageSize + 1 }} -
+      {{
+        pageNumber * pageSize > this.totalCount
+          ? this.totalCount
+          : pageNumber * pageSize
+      }}
+    </strong>
+    of
+    <strong>
+      {{ this.totalCount }}
+      Products
+    </strong>
+  </span>
+  <span *ngIf="totalCount === 0" class="text-danger font-bold">
+    No Results!
+  </span>
 </header>

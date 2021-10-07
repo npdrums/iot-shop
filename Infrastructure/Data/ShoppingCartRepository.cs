@@ -29,7 +29,7 @@ namespace Infrastructure.Data
 
         public async Task<CustomerShoppingCart> UpdateShoppingCartAsync(CustomerShoppingCart shoppingCart)
         {
-            var created = await _db.StringSetAsync(shoppingCart.Id, 
+            var created = await _db.StringSetAsync(shoppingCart.Id,
                                 JsonSerializer.Serialize(shoppingCart), TimeSpan.FromDays(3));
             if (!created) return null;
             return await GetShoppingCartAsync(shoppingCart.Id);

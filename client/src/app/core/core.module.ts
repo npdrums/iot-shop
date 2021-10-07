@@ -15,9 +15,9 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-left',
-      preventDuplicates: true
-    })
+      preventDuplicates: true,
+    }),
   ],
-  exports: [NavBarComponent]
+  exports: [NavBarComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

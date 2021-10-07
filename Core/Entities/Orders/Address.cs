@@ -6,11 +6,11 @@ namespace Core.Entities.Orders
         {
         }
 
-        public Address(string firstName, 
-                    string lastName, 
-                    string street, 
-                    string city, 
-                    string state, 
+        public Address(string firstName,
+                    string lastName,
+                    string street,
+                    string city,
+                    string state,
                     string zipcode)
         {
             FirstName = firstName;
@@ -27,5 +27,5 @@ namespace Core.Entities.Orders
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
-    } 
+    }
 }

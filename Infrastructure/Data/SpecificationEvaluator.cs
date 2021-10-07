@@ -11,22 +11,22 @@ namespace Infrastructure.Data
             ISpecification<TEntity> specification)
         {
             var query = inputQuery;
-            if(specification.Criteria != null)
+            if (specification.Criteria != null)
             {
                 query = query.Where(specification.Criteria);
             }
 
-            if(specification.OrderBy != null)
+            if (specification.OrderBy != null)
             {
                 query = query.OrderBy(specification.OrderBy);
             }
 
-            if(specification.OrderByDesc != null)
+            if (specification.OrderByDesc != null)
             {
                 query = query.OrderByDescending(specification.OrderByDesc);
             }
 
-            if(specification.IsPageEnabled)
+            if (specification.IsPageEnabled)
             {
                 query = query.Skip(specification.Skip).Take(specification.Take);
             }

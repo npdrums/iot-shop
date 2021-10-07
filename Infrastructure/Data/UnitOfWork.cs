@@ -27,7 +27,10 @@ namespace Infrastructure.Data
 
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
         {
-            if(_repositories == null) _repositories = new Hashtable();
+            if (_repositories == null) 
+            {
+                _repositories = new Hashtable();
+            }
 
             var type = typeof(TEntity).Name;
 
@@ -39,7 +42,7 @@ namespace Infrastructure.Data
                 _repositories.Add(type, repositoryInstance);
             }
 
-            return (IGenericRepository<TEntity>) _repositories[type];
+            return (IGenericRepository<TEntity>)_repositories[type];
         }
     }
 }

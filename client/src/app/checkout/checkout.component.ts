@@ -8,15 +8,17 @@ import { ICartTotals } from '../shared/models/cart';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss']
+  styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
   cartTotals$: Observable<ICartTotals>;
 
-  constructor(private formBuilder: FormBuilder,
-              private accountService: AccountService,
-              private cartService: CartService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private accountService: AccountService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.createCheckoutForm();
@@ -37,32 +39,36 @@ export class CheckoutComponent implements OnInit {
         zipcode: [null, Validators.required],
       }),
       deliveryForm: this.formBuilder.group({
-        deliveryMethod: [null, Validators.required]
+        deliveryMethod: [null, Validators.required],
       }),
       paymentForm: this.formBuilder.group({
-        nameOnCard: [null, Validators.required]
-      })
+        nameOnCard: [null, Validators.required],
+      }),
     });
   }
 
   // tslint:disable-next-line: typedef
   getAddressFormValues() {
-    this.accountService.getUserAddress().subscribe(address => {
-      if (address) {
-        this.checkoutForm.get('addressForm').patchValue(address);
+    this.accountService.getUserAddress().subscribe(
+      (address) => {
+        if (address) {
+          this.checkoutForm.get('addressForm').patchValue(address);
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-    }, error => {
-      console.log(error);
-    });
+    );
   }
 
   // tslint:disable-next-line: typedef
   getDeliveryMethodValue() {
     const cart = this.cartService.getCurrentCartValue();
     if (cart.deliveryMethodId !== null) {
-      this.checkoutForm.get('deliveryForm').get('deliveryMethod')
-          .patchValue(cart.deliveryMethodId.toString());
+      this.checkoutForm
+        .get('deliveryForm')
+        .get('deliveryMethod')
+        .patchValue(cart.deliveryMethodId.toString());
     }
   }
-
 }

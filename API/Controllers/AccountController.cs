@@ -18,15 +18,15 @@ namespace API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly ITokenService _tokenService;
+        private readonly IJwtService _JwtService;
         private readonly IMapper _mapper;
         public AccountController(UserManager<AppUser> userManager, 
             SignInManager<AppUser> signInManager, 
-            ITokenService tokenService, 
+            IJwtService JwtService, 
             IMapper mapper)
         {
             _mapper = mapper;
-            _tokenService = tokenService;
+            _JwtService = JwtService;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -40,7 +40,7 @@ namespace API.Controllers
             return new UserDTO
             {
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Token = _JwtService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
         }
@@ -96,7 +96,7 @@ namespace API.Controllers
             return new UserDTO
             {
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Token = _JwtService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
         }
@@ -131,7 +131,7 @@ namespace API.Controllers
             return new UserDTO
             {
                 DisplayName = user.DisplayName,
-                Token = _tokenService.CreateToken(user),
+                Token = _JwtService.CreateToken(user),
                 Email = user.Email
             };
         }

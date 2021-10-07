@@ -1,21 +1,21 @@
 <div class="card shadow-sm bg-light text-uppercase font-weight-bold m-4">
   <div class="card-header">Order Summary</div>
   <div class="card-body">
-    <p class="font-italic mb-4" style="color: red">
+    <p class="font-bold mb-4 text-danger">
       Shipping costs of IOT Kits will be added!
     </p>
     <ul class="list-unstyled mb-4">
       <li class="d-flex justify-content-between py-3 border-bottom">
         <span class="text-muted">Order subtotal</span>
-        <strong>{{subtotal | currency}}</strong>
+        <strong>{{ subtotal | currency }}</strong>
       </li>
       <li class="d-flex justify-content-between py-3 border-bottom">
-        <span class="text-muted">Shipping and handling</span>
-        <strong>{{shippingPrice | currency}}</strong>
+        <span class="text-muted">Shipping</span>
+        <strong>{{ shippingPrice | currency }}</strong>
       </li>
       <li class="d-flex justify-content-between py-3 border-bottom">
         <span class="text-muted">Total</span>
-        <strong>{{total | currency}}</strong>
+        <strong>{{ total | currency }}</strong>
       </li>
     </ul>
   </div>

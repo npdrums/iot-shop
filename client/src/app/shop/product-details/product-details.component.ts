@@ -7,15 +7,17 @@ import { ShopService } from '../shop.service';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
   product: IProduct;
   quantity = 1;
 
-  constructor(private shopService: ShopService,
-              private activatedRoot: ActivatedRoute,
-              private cartService: CartService) { }
+  constructor(
+    private shopService: ShopService,
+    private activatedRoot: ActivatedRoute,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.loadProduct();
@@ -40,10 +42,15 @@ export class ProductDetailsComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   loadProduct() {
-    this.shopService.getProduct(+this.activatedRoot.snapshot.paramMap.get('id')).subscribe(product => {
-      this.product = product;
-    }, error => {
-      console.log(error);
-    });
+    this.shopService
+      .getProduct(+this.activatedRoot.snapshot.paramMap.get('id'))
+      .subscribe(
+        (product) => {
+          this.product = product;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }

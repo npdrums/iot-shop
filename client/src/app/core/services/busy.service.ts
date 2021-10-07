@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BusyService {
   busyRequestCount = 0;
 
-  constructor(private ngxSpinnerService: NgxSpinnerService) { }
+  constructor(private ngxSpinnerService: NgxSpinnerService) {}
 
   // tslint:disable-next-line: typedef
   busy() {
@@ -15,7 +15,7 @@ export class BusyService {
     this.ngxSpinnerService.show(undefined, {
       type: 'pacman',
       bdColor: 'rgba(255,255,255,0.8)',
-      color: '#333333'
+      color: '#333333',
     });
   }
 

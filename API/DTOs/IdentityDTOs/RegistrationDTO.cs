@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 namespace API.DTOs.IdentityDTOs
 {
     public class RegistrationDTO
-    {   [Required]
+    {
+        [Required]
         public string DisplayName { get; set; }
 
         [Required]
@@ -16,4 +17,4 @@ namespace API.DTOs.IdentityDTOs
         // ErrorMessage = "Password must have 1 number, 1 Uppercase letter and at least 8 characters")]
         public string Password { get; set; }
     }
-} 
+}

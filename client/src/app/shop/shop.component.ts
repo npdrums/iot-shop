@@ -8,22 +8,22 @@ import { ShopService } from './shop.service';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.scss']
+  styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('search', {static: false}) searchTerm: ElementRef;
+  @ViewChild('search', { static: false }) searchTerm: ElementRef;
   products: IProduct[];
   brands: IBrand[];
   types: IType[];
   shopParams = new ShopParams();
   totalCount: number;
   sortOptions = [
-    {name: 'By Name', value: 'byName'},
-    {name: 'By Price: Low to High', value: 'byPriceAsc'},
-    {name: 'By Price: High to Low', value: 'byPriceDesc'}
+    { name: 'By Name', value: 'byName' },
+    { name: 'By Price: Low to High', value: 'byPriceAsc' },
+    { name: 'By Price: High to Low', value: 'byPriceDesc' },
   ];
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -33,33 +33,41 @@ export class ShopComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   getProducts() {
-    this.shopService.getProducts(this.shopParams)
-    .subscribe(response => {
-      this.products = response.data;
-      this.shopParams.pageNumber = response.pageIndex;
-      this.shopParams.pageSize = response.pageSize;
-      this.totalCount = response.count;
-    }, error => {
-      console.log(error);
-    });
+    this.shopService.getProducts(this.shopParams).subscribe(
+      (response) => {
+        this.products = response.data;
+        this.shopParams.pageNumber = response.pageIndex;
+        this.shopParams.pageSize = response.pageSize;
+        this.totalCount = response.count;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   // tslint:disable-next-line: typedef
   getBrands() {
-    this.shopService.getBrands().subscribe(response => {
-      this.brands = [{id: 0, name: 'All'}, ...response];
-    }, error => {
-      console.log(error);
-    });
+    this.shopService.getBrands().subscribe(
+      (response) => {
+        this.brands = [{ id: 0, name: 'All' }, ...response];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   // tslint:disable-next-line: typedef
   getTypes() {
-    this.shopService.getTypes().subscribe(response => {
-      this.types = [{id: 0, name: 'All'}, ...response];
-    }, error => {
-      console.log(error);
-    });
+    this.shopService.getTypes().subscribe(
+      (response) => {
+        this.types = [{ id: 0, name: 'All' }, ...response];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   // tslint:disable-next-line: typedef

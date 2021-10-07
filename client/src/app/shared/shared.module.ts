@@ -12,21 +12,34 @@ import { RouterModule } from '@angular/router';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
-
 @NgModule({
-  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent,
-    TextInputComponent, StepperComponent, CartSummaryComponent],
+  declarations: [
+    PagingHeaderComponent,
+    PagerComponent,
+    OrderTotalsComponent,
+    TextInputComponent,
+    StepperComponent,
+    CartSummaryComponent,
+  ],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     ReactiveFormsModule,
     CdkStepperModule,
-    RouterModule
+    RouterModule,
   ],
-  exports: [PaginationModule, PagingHeaderComponent, PagerComponent,
-    OrderTotalsComponent, ReactiveFormsModule, BsDropdownModule,
-    TextInputComponent, CdkStepperModule, StepperComponent,
-    CartSummaryComponent]
+  exports: [
+    PaginationModule,
+    PagingHeaderComponent,
+    PagerComponent,
+    OrderTotalsComponent,
+    ReactiveFormsModule,
+    BsDropdownModule,
+    TextInputComponent,
+    CdkStepperModule,
+    StepperComponent,
+    CartSummaryComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

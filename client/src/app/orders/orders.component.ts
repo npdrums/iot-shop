@@ -5,12 +5,12 @@ import { IOrder } from '../shared/models/order';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit {
   orders: IOrder[];
 
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService) {}
 
   // tslint:disable-next-line: typedef
   ngOnInit() {
@@ -19,11 +19,13 @@ export class OrdersComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   getOrders() {
-    this.ordersService.getOrdersForUser().subscribe((orders: IOrder[]) => {
-      this.orders = orders;
-    }, error => {
-      console.log(error);
-    });
+    this.ordersService.getOrdersForUser().subscribe(
+      (orders: IOrder[]) => {
+        this.orders = orders;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-
 }

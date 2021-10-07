@@ -6,7 +6,7 @@ import { CartService } from 'src/app/cart/cart.service';
 @Component({
   selector: 'app-order-totals',
   templateUrl: './order-totals.component.html',
-  styleUrls: ['./order-totals.component.scss']
+  styleUrls: ['./order-totals.component.scss'],
 })
 export class OrderTotalsComponent implements OnInit {
   cartTotal$: Observable<ICartTotals>;
@@ -14,10 +14,8 @@ export class OrderTotalsComponent implements OnInit {
   @Input() subtotal: number;
   @Input() total: number;
 
-  constructor() { }
+  constructor() {}
 
   // tslint:disable-next-line: typedef
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

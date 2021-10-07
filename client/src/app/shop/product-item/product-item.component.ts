@@ -5,15 +5,14 @@ import { IProduct } from 'src/app/shared/models/product';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.scss']
+  styleUrls: ['./product-item.component.scss'],
 })
 export class ProductItemComponent implements OnInit {
   @Input() product: IProduct;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // tslint:disable-next-line: typedef
   addItemToCart() {

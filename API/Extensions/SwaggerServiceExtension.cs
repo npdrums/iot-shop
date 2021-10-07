@@ -8,11 +8,11 @@ namespace API.Extensions
     {
         public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
         {
-            services.AddSwaggerGen(s => 
+            services.AddSwaggerGen(s =>
             {
-                s.SwaggerDoc("v1", new OpenApiInfo{Title = "IOT Shop Api", Version = "v1"});
+                s.SwaggerDoc("v1", new OpenApiInfo { Title = "IOT Shop Api", Version = "v1" });
 
-                 var securitySchema = new OpenApiSecurityScheme
+                var securitySchema = new OpenApiSecurityScheme
                 {
                     Description = "JWT Auth Bearer Scheme",
                     Name = "Authorization",
@@ -27,17 +27,17 @@ namespace API.Extensions
                 };
 
                 s.AddSecurityDefinition("Bearer", securitySchema);
-                var securityRequirement = new OpenApiSecurityRequirement {{securitySchema, new[] {"Bearer"}}};
+                var securityRequirement = new OpenApiSecurityRequirement { { securitySchema, new[] { "Bearer" } } };
                 s.AddSecurityRequirement(securityRequirement);
             });
-            
+
             return services;
         }
 
         public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(s => {s.SwaggerEndpoint("/swagger/v1/swagger.json", "IOT Shop API v1");});
+            app.UseSwaggerUI(s => { s.SwaggerEndpoint("/swagger/v1/swagger.json", "IOT Shop API v1"); });
 
             return app;
         }

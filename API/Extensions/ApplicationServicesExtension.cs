@@ -12,10 +12,10 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IPaymentService, StripePaymentService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.Configure<ApiBehaviorOptions>(options =>

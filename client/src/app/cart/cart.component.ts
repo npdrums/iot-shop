@@ -3,17 +3,16 @@ import { Observable } from 'rxjs';
 import { ICart, ICartItem, ICartTotals } from '../shared/models/cart';
 import { CartService } from './cart.service';
 
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
   cart$: Observable<ICart>;
   cartTotals$: Observable<ICartTotals>;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.cart$ = this.cartService.cart$;
@@ -34,5 +33,4 @@ export class CartComponent implements OnInit {
   decreaseItemQuantity(item: ICartItem) {
     this.cartService.decreaseItemQuantity(item);
   }
-
 }
