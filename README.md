@@ -7,6 +7,7 @@ You would also need to generate self-signed certificates to run over SSL.
 
 1. Register your account on [Stripe](https://stripe.com) and create new business
 2. Install [Stripe CLI](https://stripe.com/docs/stripe-cli) and connect it to your Stripe account
+3. Configure [Stripe Secrets](https://stripe.com/docs/payments/payment-intents) and [Stripe WebHook](https://stripe.com/docs/webhooks) in appsettings.json
 3. Install [Redis](https://redis.io/)
 
 ### How to run?
